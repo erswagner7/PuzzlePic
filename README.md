@@ -2,6 +2,9 @@
 IT3048C Mobile App Development
 
 ## Introduction - Erich
+PuzzlePic allows users to take picture from their camera or images grabbed from an online database and convert them into sliding puzzles.
+Users will be able to create accounts where they can save their current game, and continue from where they left off from, or restart the puzzle at any point.
+
 
 ## Storyboard - Michael McQ
 
