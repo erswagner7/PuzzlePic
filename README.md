@@ -123,7 +123,10 @@ As a user, I want to be able to reshuffle a slide puzzle, whether or not it has 
 
 **Then**: Our app asks if the user wanted to shuffle the puzzle, and waits for confirmation or cancellation before shuffling according to examples 2 and 3. 
 
-## Class Diagram - Andre
+## Class Diagram
+
+![PuzzlePicMVVM](https://user-images.githubusercontent.com/81546348/120079799-9a7c0580-c083-11eb-9133-9475c7e539f4.jpg)
+
 
 ## Team Members and Roles
 ### UI Specialist - Matthew Saling | Matthew Dumford
