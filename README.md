@@ -134,7 +134,8 @@ As a user, I want to be able to reshuffle a slide puzzle, whether or not it has 
 
 ## Class Diagram
 
-![PuzzlePicMVVM](https://user-images.githubusercontent.com/81546348/120084626-b1c8ec00-c09f-11eb-9407-aec2f6068443.jpg)
+![PuzzlePicMVVM2](https://user-images.githubusercontent.com/81546348/120084645-d45b0500-c09f-11eb-90d1-3d7a351edf31.jpg)
+
 
 
 
