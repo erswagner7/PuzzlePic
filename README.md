@@ -125,7 +125,8 @@ As a user, I want to be able to reshuffle a slide puzzle, whether or not it has 
 
 ## Class Diagram
 
-![PuzzlePicMVVM](https://user-images.githubusercontent.com/81546348/120079799-9a7c0580-c083-11eb-9133-9475c7e539f4.jpg)
+![PuzzlePicMVVM](https://user-images.githubusercontent.com/81546348/120079981-98ff0d00-c084-11eb-816d-ee221c6c0010.jpg)
+
 
 
 ## Team Members and Roles
