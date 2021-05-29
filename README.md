@@ -6,7 +6,9 @@ PuzzlePic allows users to take picture from their camera or images grabbed from 
 Users will be able to create accounts where they can save their current game, and continue from where they left off from, or restart the puzzle at any point.
 
 
-## Storyboard - Michael McQ
+## Storyboard - Michael McQuade
+[PuzzlePic Storyboard](https://projects.invisionapp.com/prototype/PuzzlePic-ckp9a077u0048vn01557tbg0g)
+
 
 ## Functional Requirements - Matthew Dumford
 
