@@ -136,7 +136,16 @@ As a user, I want to be able to reshuffle a slide puzzle, whether or not it has 
 
 ![PuzzlePicMVVM2](https://user-images.githubusercontent.com/81546348/120084645-d45b0500-c09f-11eb-90d1-3d7a351edf31.jpg)
 
-##Test push - using different computer -AA
+## Class Diagram Description
+
+## The picture taken by the user will become a picture class. Each picture will have an ID, title, and other useful information.
+## The picture will be split into tiles, each tile being numbered.
+
+## In the com.puzzle.ui the ContextCameraViewModel is needed to access the camera from the mobile device.
+## In the com.puzzle.ui the ContextAwareViewModel is needed to access the GeoTagging function from the mobile device.
+
+
+## Product Backlog
 
 
 
