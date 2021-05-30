@@ -154,4 +154,4 @@ In the com.puzzle.ui the ContextAwareViewModel is needed to access the GeoTaggin
 ### DevOps and Product Owner - Erich Wagner
 
 ## Standup
-### Weekly Standups at 7pm on Discord
+### Weekly Standups Wednesdays at 7pm on Discord
