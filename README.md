@@ -145,7 +145,6 @@ As a user, I want to be able to reshuffle a slide puzzle, whether or not it has 
 ## In the com.puzzle.ui the ContextAwareViewModel is needed to access the GeoTagging function from the mobile device.
 
 
-## Product Backlog
 
 
 
