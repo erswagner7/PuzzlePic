@@ -9,7 +9,9 @@ import org.junit.Assert.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
+class SimpleUnitTest {
+
+    // Leave this test in until circleci is working
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
