@@ -1,13 +1,17 @@
 package com.example.puzzlepic.dao
 
-import android.graphics.Picture
-import retrofit2.http.GET
+import com.example.puzzlepic.dto.Picture
 import retrofit2.Call
+import retrofit2.http.GET
+
+
+
 interface IPictureDAO {
 
-    @GET("")
-    fun getAllPictures(): Call<ArrayList<Picture>> //going to return a collection of pictures.
+    @GET("/photos/random?client_id=gNYmyVdZ2_qHp3L4i4yzrulyHU70MdvnmsFFyB_5y38")//TODO move access key to header interceptor
+    fun getRandomImage(): Call<ArrayList<Picture>>
 
-    @GET("")
-    fun getPictures(plantName:String) : Call<ArrayList<Picture>> //going to return a specific picture.
+    //
+    //@GET("")
+    //fun getPictureByName(pictureName:String) : Call<ArrayList<Picture>> //going to return a specific picture.
 }
