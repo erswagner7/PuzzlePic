@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">PuzzlePic</string>
+    <string name="appName">PuzzlePic</string>
+    <string name="navbar_image_button_description">View saved images</string>
+    <string name="navbar_camera_description">Take a new picture</string>
+    <string name="navbar_user_image_description">User settings</string>
+    <string name="navbar_create_puzzle_button">Create New Puzzle</string>
+    <string name="navbar_random_puzzle_button">Get Random Puzzle</string>
+    <string name="no_image_found">No Image Found!</string>
 </resources>

@@ -9,7 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     // custom color theme
-    <color name="creamBackgound">#BFB2A3</color>
+    <color name="creamBackground">#BFB2A3</color>
     <color name="matteGray">#817C70</color>
     <color name="customBlack">#050505</color>
     <color name="darkMaroon">#800101</color>
