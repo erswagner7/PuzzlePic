@@ -5,16 +5,319 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/matteGray"
     tools:context=".ui.main.MainFragment">
 
     <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
+        android:id="@+id/appName"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="MainFragment"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/creamBackground"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/topNavBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/creamBackground"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appName">
+
+        <ImageButton
+            android:id="@+id/navBarImageButton"
+            android:layout_width="@dimen/image_button_xlarge"
+            android:layout_height="@dimen/image_button_xlarge"
+            android:background="@color/creamBackground"
+            android:contentDescription="@string/navbar_image_button_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_image"
+            tools:src="@drawable/ic_image" />
+
+        <ImageButton
+            android:id="@+id/navBarCameraButton"
+            android:layout_width="@dimen/image_button_xlarge"
+            android:layout_height="@dimen/image_button_xlarge"
+            android:background="@color/creamBackground"
+            android:contentDescription="@string/navbar_camera_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_camera" />
+
+        <ImageButton
+            android:id="@+id/navBarUserButton"
+            android:layout_width="@dimen/image_button_xlarge"
+            android:layout_height="@dimen/image_button_xlarge"
+            android:background="@color/creamBackground"
+            android:contentDescription="@string/navbar_user_image_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_user" />
+    </LinearLayout>
+
+    <TableLayout
+        android:id="@+id/imagePreviewContainer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/creamBackground"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topNavBar">
+
+        <TableRow
+            android:id="@+id/rowImages1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/image1"
+                android:layout_width="@dimen/image_button_xlarge"
+                android:layout_height="@dimen/image_button_xlarge"
+                android:background="@color/matteGray"
+                android:contentDescription="@string/no_image_found"
+                android:scaleType="center"
+                android:src="@drawable/ic_image_not_found" />
+
+            <ImageView
+                android:id="@+id/image2"
+                android:layout_width="@dimen/image_button_xlarge"
+                android:layout_height="@dimen/image_button_xlarge"
+                android:background="@color/matteGray"
+                android:contentDescription="@string/no_image_found"
+                android:scaleType="center"
+                android:src="@drawable/ic_image_not_found" />
+
+            <ImageView
+                android:id="@+id/image3"
+                android:layout_width="@dimen/image_button_xlarge"
+                android:layout_height="@dimen/image_button_xlarge"
+                android:background="@color/matteGray"
+                android:contentDescription="@string/no_image_found"
+                android:scaleType="center"
+                android:src="@drawable/ic_image_not_found" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/rowText1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/imageText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/no_image_found"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/customBlack" />
+
+            <TextView
+                android:id="@+id/imageText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/no_image_found"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/customBlack" />
+
+            <TextView
+                android:id="@+id/imageText3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/no_image_found"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/customBlack" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/rowImages2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/image4"
+                android:layout_width="@dimen/image_button_xlarge"
+                android:layout_height="@dimen/image_button_xlarge"
+                android:background="@color/matteGray"
+                android:contentDescription="@string/no_image_found"
+                android:scaleType="center"
+                android:src="@drawable/ic_image_not_found" />
+
+            <ImageView
+                android:id="@+id/image5"
+                android:layout_width="@dimen/image_button_xlarge"
+                android:layout_height="@dimen/image_button_xlarge"
+                android:background="@color/matteGray"
+                android:contentDescription="@string/no_image_found"
+                android:scaleType="center"
+                android:src="@drawable/ic_image_not_found" />
+
+            <ImageView
+                android:id="@+id/image6"
+                android:layout_width="@dimen/image_button_xlarge"
+                android:layout_height="@dimen/image_button_xlarge"
+                android:background="@color/matteGray"
+                android:contentDescription="@string/no_image_found"
+                android:scaleType="center"
+                android:src="@drawable/ic_image_not_found" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/rowText2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/imageText4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/no_image_found"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/customBlack" />
+
+            <TextView
+                android:id="@+id/imageText5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/no_image_found"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/customBlack" />
+
+            <TextView
+                android:id="@+id/imageText6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/no_image_found"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/customBlack" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/rowImages3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/image7"
+                android:layout_width="@dimen/image_button_xlarge"
+                android:layout_height="@dimen/image_button_xlarge"
+                android:background="@color/matteGray"
+                android:contentDescription="@string/no_image_found"
+                android:scaleType="center"
+                android:src="@drawable/ic_image_not_found" />
+
+            <ImageView
+                android:id="@+id/image8"
+                android:layout_width="@dimen/image_button_xlarge"
+                android:layout_height="@dimen/image_button_xlarge"
+                android:background="@color/matteGray"
+                android:contentDescription="@string/no_image_found"
+                android:scaleType="center"
+                android:src="@drawable/ic_image_not_found" />
+
+            <ImageView
+                android:id="@+id/image9"
+                android:layout_width="@dimen/image_button_xlarge"
+                android:layout_height="@dimen/image_button_xlarge"
+                android:background="@color/matteGray"
+                android:contentDescription="@string/no_image_found"
+                android:scaleType="center"
+                android:src="@drawable/ic_image_not_found" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/rowText3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/imageText7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/no_image_found"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/customBlack" />
+
+            <TextView
+                android:id="@+id/imageText8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/no_image_found"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/customBlack" />
+
+            <TextView
+                android:id="@+id/imageText9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/no_image_found"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/customBlack" />
+        </TableRow>
+
+    </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomNavBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/button2"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/creamBackground"
+            android:text="@string/navbar_create_puzzle_button"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/customBlack"
+            app:backgroundTint="@color/creamBackground" />
+
+        <Button
+            android:id="@+id/button3"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/creamBackground"
+            android:text="@string/navbar_random_puzzle_button"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/customBlack"
+            app:backgroundTint="@color/creamBackground" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
