@@ -16,7 +16,7 @@ object RetrofitClientInstance {
         //has this object been created?
         if(retrofit == null){
             //then create it
-            retrofit = retrofit2.Retrofit.Builder()//TODO add header interceptor for unsplash access key
+            retrofit = retrofit2.Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
