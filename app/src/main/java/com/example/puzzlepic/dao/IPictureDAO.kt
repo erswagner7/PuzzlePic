@@ -8,7 +8,7 @@ import retrofit2.http.GET
 
 interface IPictureDAO {
 
-    @GET("/photos/random?client_id=gNYmyVdZ2_qHp3L4i4yzrulyHU70MdvnmsFFyB_5y38")//TODO move access key to header interceptor
+    @GET("/photos?client_id=gNYmyVdZ2_qHp3L4i4yzrulyHU70MdvnmsFFyB_5y38&per_page=100")
     fun getRandomImage(): Call<ArrayList<Picture>>
 
     //

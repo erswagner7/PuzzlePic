@@ -40,9 +40,11 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
+
         button3.setOnClickListener {
-            testRandomPhoto()
+            val rnds = (0..viewModel.picture.value!!.size).random() // generated random from 0 to size of current photo array included
+            var randomURL = viewModel.picture.value?.get(rnds)!!.urls?.raw.toString()
+            testRandomPhoto(randomURL)
         }
     }
 
@@ -50,12 +52,13 @@ class MainFragment : Fragment() {
     /**
      * This will set the center photo box with a photo from the internet when the "Get Random Puzzle Button" is selected
      */
-    private fun testRandomPhoto() {
-         val Image_Url = "https://images.unsplash.com/photo-1622182126375-fb50f349dea2?ixid=MnwyNDAxMTN8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MjQwMzA0NjE\\u0026ixlib=rb-1.2.1"
+    private fun testRandomPhoto(randomURL : String = "") {
+         val Image_Url = randomURL
         val imageView = image5
         Picasso
             .with(context)
             .load(Image_Url)
+            .resize(300,300)
             .into(imageView)
     }
 
