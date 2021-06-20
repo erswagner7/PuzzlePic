@@ -1,11 +1,19 @@
 package com.example.puzzlepic.ui.main
 
+import android.Manifest
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.puzzlepic.R
 import kotlinx.android.synthetic.main.main_fragment.*
 
@@ -38,7 +46,7 @@ class MainFragment : Fragment() {
      * See if there is permission to take photo
      */
     private fun prepTakePhoto(){
-        if(ContextCompat.checkSelfPermission(context!!, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+        if(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
             takePhoto()
         } else {
             val permissionRequest = arrayOf(Manifest.permission.CAMERA)
@@ -46,7 +54,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    override fun onRequestPermissionResult(
+    fun onRequestPermissionResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
@@ -65,7 +73,7 @@ class MainFragment : Fragment() {
 
     private fun takePhoto(){
         Intent(MediaStore.ACTION_IMAGE_CAPTURE).also{
-            takePictureIntent -> takePictureIntent.resolveActivity(context!!.packageManager)?.also{
+            takePictureIntent -> takePictureIntent.resolveActivity(requireContext().packageManager)?.also{
                 startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE)
         }
         }
@@ -75,7 +83,7 @@ class MainFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == RESULT_OK){
             if(requestCode == CAMERA_REQUEST_CODE){
-                val imageBitmap = data!!extras!!.get("data") as Bitmap
+                val imageBitmap = data!!.extras!!.get("data") as Bitmap
                 image1.setImageBitmap(imageBitmap)
             }
         }
