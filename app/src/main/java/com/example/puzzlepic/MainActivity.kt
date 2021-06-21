@@ -1,7 +1,7 @@
 package com.example.puzzlepic
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.puzzlepic.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
