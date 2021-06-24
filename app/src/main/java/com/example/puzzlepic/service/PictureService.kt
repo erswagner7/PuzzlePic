@@ -25,7 +25,7 @@ class PictureService {
      */
     fun fetchPicture() : MutableLiveData<ArrayList<Picture>> {
 
-        var _Picture = MutableLiveData<ArrayList<Picture>>()
+        var picture = MutableLiveData<ArrayList<Picture>>()
         val service = RetrofitClientInstance.retrofitInstance?.create(IPictureDAO::class.java)
         val call = service?.getRandomImage()
         call?.enqueue(object: Callback<ArrayList<Picture>>{
@@ -37,7 +37,7 @@ class PictureService {
                 call: Call<ArrayList<Picture>>,
                 response: Response<ArrayList<Picture>>
             ) {
-                _Picture.value = response.body()
+                picture.value = response.body()
             }
 
             /**
@@ -49,6 +49,6 @@ class PictureService {
 
 
         })
-        return _Picture
+        return picture
     }
 }

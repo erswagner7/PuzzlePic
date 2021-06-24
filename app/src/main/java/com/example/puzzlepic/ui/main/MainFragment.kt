@@ -34,10 +34,6 @@ class MainFragment : Fragment() {
 
     private lateinit var currentPhotoPath: String
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
     private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -53,7 +49,7 @@ class MainFragment : Fragment() {
             prepTakePhoto()
         }
 
-        button3.setOnClickListener {
+        getRandomPuzzleButton.setOnClickListener {
             val rnds = (0..viewModel.picture.value!!.size).random() // generated random from 0 to size of current photo array included
             var randomURL = viewModel.picture.value?.get(rnds)!!.urls.raw.toString()
             testRandomPhoto(randomURL)
@@ -132,5 +128,9 @@ class MainFragment : Fragment() {
         return File.createTempFile("puzzlePic${timestamp}", ".jpg", storageDir).apply {
             currentPhotoPath = absolutePath
         }
+    }
+
+    companion object {
+        fun newInstance() = MainFragment()
     }
 }
