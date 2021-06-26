@@ -11,14 +11,14 @@ class MainViewModel : ViewModel() {
     var pictureService: PictureService = PictureService()
 
 
-    init{
+    init {
         fetchPictures()
     }
 
     /*
     Loads an array of unsplash Pictures into the view model using retrofit
     */
-    fun fetchPictures(){
+    fun fetchPictures() {
         picture = pictureService.fetchPicture()
     }
 }

@@ -40,8 +40,10 @@ class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
@@ -49,12 +51,13 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         // TODO: Use the ViewModel
-        navBarCameraButton.setOnClickListener{
+        navBarCameraButton.setOnClickListener {
             prepTakePhoto()
         }
 
         button3.setOnClickListener {
-            val rnds = (0..viewModel.picture.value!!.size).random() // generated random from 0 to size of current photo array included
+            val rnds =
+                (0..viewModel.picture.value!!.size).random() // generated random from 0 to size of current photo array included
             var randomURL = viewModel.picture.value?.get(rnds)!!.urls.raw.toString()
             testRandomPhoto(randomURL)
         }
@@ -63,8 +66,12 @@ class MainFragment : Fragment() {
     /**
      * See if there is permission to take photo
      */
-    private fun prepTakePhoto(){
-        if(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+    private fun prepTakePhoto() {
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.CAMERA
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             takePhoto()
         } else {
             val permissionRequest = arrayOf(Manifest.permission.CAMERA)
@@ -76,31 +83,35 @@ class MainFragment : Fragment() {
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
-    ){
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode){
+        when (requestCode) {
             CAMERA_PERMISSION_REQUEST_CODE -> {
-                if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     takePhoto()
                 } else {
-                    Toast.makeText(context, "Unable to take photo without permission", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        context,
+                        "Unable to take photo without permission",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }
     }
 
-    private fun takePhoto(){
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also{
-            takePictureIntent -> takePictureIntent.resolveActivity(requireContext().packageManager)?.also{
+    private fun takePhoto() {
+        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+            takePictureIntent.resolveActivity(requireContext().packageManager)?.also {
                 startActivityForResult(takePictureIntent, CAMERA_REQUEST_CODE)
-        }
+            }
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == RESULT_OK){
-            if(requestCode == CAMERA_REQUEST_CODE){
+        if (resultCode == RESULT_OK) {
+            if (requestCode == CAMERA_REQUEST_CODE) {
                 val imageBitmap = data!!.extras!!.get("data") as Bitmap
                 image1.setImageBitmap(imageBitmap)
             }
@@ -112,19 +123,19 @@ class MainFragment : Fragment() {
     /**
      * This will set the center photo box with a photo from the internet when the "Get Random Puzzle Button" is selected
      */
-    private fun testRandomPhoto(randomURL : String = "") {
-         val Image_Url = randomURL
+    private fun testRandomPhoto(randomURL: String = "") {
+        val Image_Url = randomURL
         val imageView = image5
         Picasso
             .with(context)
             .load(Image_Url)
-            .resize(300,300)
+            .resize(300, 300)
             .into(imageView)
     }
 
 
     //TODO for later use
-    private fun createImageFile() : File {
+    private fun createImageFile(): File {
         // genererate a unique filename with date.
         val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         // get access to the directory where we can write pictures.

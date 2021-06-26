@@ -5,7 +5,6 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 
-
 interface IPictureDAO {
 
     @GET("/photos?client_id=gNYmyVdZ2_qHp3L4i4yzrulyHU70MdvnmsFFyB_5y38&per_page=100")

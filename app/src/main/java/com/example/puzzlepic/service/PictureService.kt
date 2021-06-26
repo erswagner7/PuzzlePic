@@ -18,17 +18,17 @@ import retrofit2.Response
  */
 
 class PictureService {
-    
+
     /**
      * Uses a callback to retrieve json data from network and handles response accordingly
      * @return an LiveArrayList of pictures.
      */
-    fun fetchPicture() : MutableLiveData<ArrayList<Picture>> {
+    fun fetchPicture(): MutableLiveData<ArrayList<Picture>> {
 
         var _Picture = MutableLiveData<ArrayList<Picture>>()
         val service = RetrofitClientInstance.retrofitInstance?.create(IPictureDAO::class.java)
         val call = service?.getRandomImage()
-        call?.enqueue(object: Callback<ArrayList<Picture>>{
+        call?.enqueue(object : Callback<ArrayList<Picture>> {
 
             /**
              * Callback method to be invoked when the response contains the expected picture data
@@ -44,7 +44,7 @@ class PictureService {
              * Callback method to be invoked when the response fails  //TODO implement method
              */
             override fun onFailure(call: Call<ArrayList<Picture>>, t: Throwable) {
-                Log.e("ImageRetreivalFailure","Unable to retrieve image from api")
+                Log.e("ImageRetreivalFailure", "Unable to retrieve image from api")
             }
 
 
