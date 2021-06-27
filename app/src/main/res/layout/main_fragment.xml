@@ -296,7 +296,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/buttonNewPuzzle"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -308,7 +308,7 @@
             app:backgroundTint="@color/creamBackground" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/buttonRandomPuzzle"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
