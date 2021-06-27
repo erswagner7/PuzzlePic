@@ -56,9 +56,9 @@ class MainFragment : Fragment() {
         }
 
         button3.setOnClickListener {
-            val rnds =
+            val randomValue =
                 (0..viewModel.picture.value!!.size).random() // generated random from 0 to size of current photo array included
-            var randomURL = viewModel.picture.value?.get(rnds)!!.urls.raw.toString()
+            var randomURL = viewModel.picture.value?.get(randomValue)!!.urls.raw.toString()
             testRandomPhoto(randomURL)
         }
     }
@@ -136,7 +136,7 @@ class MainFragment : Fragment() {
 
     //TODO for later use
     private fun createImageFile(): File {
-        // genererate a unique filename with date.
+        // generate a unique filename with date.
         val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         // get access to the directory where we can write pictures.
         val storageDir: File? = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
