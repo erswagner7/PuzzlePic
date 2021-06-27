@@ -119,7 +119,6 @@ class MainFragment : Fragment() {
 
     }
 
-
     /**
      * This will set the center photo box with a photo from the internet when the "Get Random Puzzle Button" is selected
      */
