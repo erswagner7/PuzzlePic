@@ -132,7 +132,6 @@ class MainFragment : Fragment() {
             .into(imageView)
     }
 
-
     //TODO for later use
     private fun createImageFile(): File {
         // genererate a unique filename with date.
