@@ -124,11 +124,11 @@ class MainFragment : Fragment() {
      * This will set the center photo box with a photo from the internet when the "Get Random Puzzle Button" is selected
      */
     private fun testRandomPhoto(randomURL: String = "") {
-        val Image_Url = randomURL
         val imageView = image5
         Picasso
             .with(context)
-            .load(Image_Url)
+//          prepares random image URL to be loaded into view
+            .load(randomURL)
             .resize(300, 300)
             .into(imageView)
     }
