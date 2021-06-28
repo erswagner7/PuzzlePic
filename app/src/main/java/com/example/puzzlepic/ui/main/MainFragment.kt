@@ -29,15 +29,8 @@ class MainFragment : Fragment() {
     private val IMAGE_GALLERY_REQUEST_CODE: Int = 2001
     private val SAVE_IMAGE_REQUEST_CODE: Int = 1999
     private val CAMERA_REQUEST_CODE: Int = 1998
-
-    val CAMERA_PERMISSION_REQUEST_CODE = 1997
-
+    private val CAMERA_PERMISSION_REQUEST_CODE = 1997
     private lateinit var currentPhotoPath: String
-
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
     private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -132,5 +125,9 @@ class MainFragment : Fragment() {
         return File.createTempFile("puzzlePic${timestamp}", ".jpg", storageDir).apply {
             currentPhotoPath = absolutePath
         }
+    }
+
+    companion object {
+        fun newInstance() = MainFragment()
     }
 }
