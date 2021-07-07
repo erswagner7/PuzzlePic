@@ -20,11 +20,13 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.puzzlepic.R
 import com.example.puzzlepic.dto.Picture
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_fragment.*
 import java.io.File
 import java.text.SimpleDateFormat
@@ -38,6 +40,8 @@ class MainFragment : Fragment() {
     val CAMERA_PERMISSION_REQUEST_CODE = 1997
 
     private lateinit var currentPhotoPath: String
+    lateinit var navController: NavController
+
     protected var puzzleURI : Uri? = null
     private var puzzles : ArrayList<Picture> = ArrayList<Picture>()
 
@@ -52,6 +56,11 @@ class MainFragment : Fragment() {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        navController = Navigation.findNavController(view)
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
@@ -60,15 +69,25 @@ class MainFragment : Fragment() {
             prepTakePhoto()
         }
 
-        button3.setOnClickListener {
+        randomPuzzleButton.setOnClickListener {
             val rnds = (0..viewModel.picture.value!!.size).random() // generated random from 0 to size of current photo array included
             var randomURL = viewModel.picture.value?.get(rnds)!!.urls.raw.toString()
-            testRandomPhoto(randomURL)
+            if(randomURL != null) {
+                val bundle = bundleOf("url" to randomURL)
+
+                /**
+                 * This will take us to our puzzle fragment using the action defined in our nav_graph
+                 * with a url as an argument to pass in the
+                 * bundle
+                 */
+                navController!!.navigate(R.id.action_mainFragment_to_puzzleFragment, bundle)
+            }
         }
 
         navBarImageButton.setOnClickListener {
             prepOpenUserPuzzleGallery()
         }
+
     }
 
     /*
@@ -169,18 +188,5 @@ class MainFragment : Fragment() {
         }
     }
 
-
-    /**
-     * This will set the center photo box with a photo from the internet when the "Get Random Puzzle Button" is selected
-     */
-    private fun testRandomPhoto(randomURL : String = "") {
-         val Image_Url = randomURL
-        val imageView = image5
-        Picasso
-            .with(context)
-            .load(Image_Url)
-            .resize(300,300)
-            .into(imageView)
-    }
 
 }
