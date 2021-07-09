@@ -17,9 +17,8 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.puzzlepic.R
+import com.example.puzzlepic.databinding.ImagePreviewFragmentBinding
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.main_fragment.*
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,8 +28,7 @@ class MainFragment : Fragment() {
     private val IMAGE_GALLERY_REQUEST_CODE: Int = 2001
     private val SAVE_IMAGE_REQUEST_CODE: Int = 1999
     private val CAMERA_REQUEST_CODE: Int = 1998
-
-    val CAMERA_PERMISSION_REQUEST_CODE = 1997
+    private val CAMERA_PERMISSION_REQUEST_CODE = 1997
 
     private lateinit var currentPhotoPath: String
 
@@ -39,23 +37,30 @@ class MainFragment : Fragment() {
     }
 
     private lateinit var viewModel: MainViewModel
+    private var _binding: ImagePreviewFragmentBinding? = null
+    private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.image_preview_fragment, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = ImagePreviewFragmentBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         // TODO: Use the ViewModel
-        navBarCameraButton.setOnClickListener{
+        binding.navBarCameraButton.setOnClickListener{
             prepTakePhoto()
         }
 
-        button3.setOnClickListener {
+        binding.button3.setOnClickListener {
             val rnds = (0..viewModel.picture.value!!.size).random() // generated random from 0 to size of current photo array included
-            var randomURL = viewModel.picture.value?.get(rnds)!!.urls.raw.toString()
+            var randomURL = viewModel.picture.value?.get(rnds)!!.urls.raw
             testRandomPhoto(randomURL)
         }
     }
@@ -102,7 +107,7 @@ class MainFragment : Fragment() {
         if(resultCode == RESULT_OK){
             if(requestCode == CAMERA_REQUEST_CODE){
                 val imageBitmap = data!!.extras!!.get("data") as Bitmap
-                image1.setImageBitmap(imageBitmap)
+                binding.image1.setImageBitmap(imageBitmap)
             }
         }
 
@@ -113,8 +118,8 @@ class MainFragment : Fragment() {
      * This will set the center photo box with a photo from the internet when the "Get Random Puzzle Button" is selected
      */
     private fun testRandomPhoto(randomURL : String = "") {
-         val Image_Url = randomURL
-        val imageView = image5
+        val Image_Url = randomURL
+        val imageView = binding.image5
         Picasso
             .with(context)
             .load(Image_Url)
@@ -125,12 +130,17 @@ class MainFragment : Fragment() {
 
     //TODO for later use
     private fun createImageFile() : File {
-        // genererate a unique filename with date.
+        // generate a unique filename with date.
         val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         // get access to the directory where we can write pictures.
         val storageDir: File? = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile("puzzlePic${timestamp}", ".jpg", storageDir).apply {
             currentPhotoPath = absolutePath
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
