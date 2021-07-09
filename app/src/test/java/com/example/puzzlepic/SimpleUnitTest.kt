@@ -1,5 +1,7 @@
 package com.example.puzzlepic
 
+import com.example.puzzlepic.dto.Picture
+import com.example.puzzlepic.dto.UnsplashPhotoUrls
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -15,5 +17,12 @@ class SimpleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
+    }
+
+    @Test
+    fun confirmPicture_outputsPicture() {
+        val testURL = UnsplashPhotoUrls()
+        val picture = Picture("testID", "testTitle", "Jan 1 1970", "testLocation", "testNotes", 123, testURL)
+        assertEquals("testTitle: Jan 1 1970", picture.toString())
     }
 }
