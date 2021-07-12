@@ -21,8 +21,21 @@ class SimpleUnitTest {
 
     @Test
     fun confirmPicture_outputsPicture() {
+        confirmPhotoURL_returnsPhotoURL()
         val testURL = UnsplashPhotoUrls()
-        val picture = Picture("testID", "testTitle", "Jan 1 1970", "testLocation", "testNotes", 123, testURL)
+        val picture = Picture(
+            "testID",
+            "testTitle",
+            "Jan 1 1970",
+            "testLocation",
+            "testNotes",
+            123, testURL)
         assertEquals("testTitle: Jan 1 1970", picture.toString())
+    }
+
+    @Test
+    fun confirmPhotoURL_returnsPhotoURL() {
+        val testURL = UnsplashPhotoUrls()
+        //TODO: assert testURL is a default UnsplashPhotoUrl
     }
 }
