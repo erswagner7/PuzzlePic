@@ -61,7 +61,7 @@ class MainFragment : Fragment() {
         binding.button3.setOnClickListener {
             val rnds = (0..viewModel.picture.value!!.size).random() // generated random from 0 to size of current photo array included
             var randomURL = viewModel.picture.value?.get(rnds)!!.urls.raw
-            //testRandomPhoto(randomURL)
+            testRandomPhoto(randomURL)
         }
     }
 
@@ -117,7 +117,7 @@ class MainFragment : Fragment() {
     /**
      * This will set the center photo box with a photo from the internet when the "Get Random Puzzle Button" is selected
      */
-    /*private fun testRandomPhoto(randomURL : String = "") {
+    private fun testRandomPhoto(randomURL : String = "") {
         val Image_Url = randomURL
         val imageView = binding.image5
         Picasso
@@ -125,7 +125,7 @@ class MainFragment : Fragment() {
             .load(Image_Url)
             .resize(300,300)
             .into(imageView)
-    }*/
+    }
 
 
     //TODO for later use
