@@ -8,8 +8,7 @@ import kotlinx.android.parcel.Parcelize
 data class Picture(@SerializedName("id") var pictureID : String = "", @SerializedName("alt_description") var pictureTitle : String = "", @SerializedName("created_at") var date : String = "", var location : String = "", var notes : String = "",
                    var puzzleID : Int = 0, @SerializedName("urls") var urls : UnsplashPhotoUrls = UnsplashPhotoUrls(), var localUri : String = "" ){
         override fun toString() : String {
-            return pictureTitle
-            return date
+            return "$pictureTitle: $date"
         }
     }
 

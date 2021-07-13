@@ -15,7 +15,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.puzzlepic.R
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.puzzle_fragment.*
+import com.example.puzzlepic.databinding.PuzzleFragmentBinding
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -29,6 +29,9 @@ class PuzzleFragment : Fragment() {
     lateinit var navController: NavController
     private lateinit var currentPhotoPath: String
 
+    private var _binding: PuzzleFragmentBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         /**
@@ -40,7 +43,9 @@ class PuzzleFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.puzzle_fragment, container, false)
+        _binding = PuzzleFragmentBinding.inflate(inflater, container, false)
+        val view = binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,18 +63,18 @@ class PuzzleFragment : Fragment() {
          *currently, on this screen we can navigate back to the main component using the "imageButton"
          * on the navbar which will navigate us back using the action defined in our nav_graph
          */
-        navBarImageButton.setOnClickListener {
+        binding.navBarImageButton.setOnClickListener {
             navController!!.navigate(R.id.action_puzzleFragment_to_mainFragment)
         }
 
 
-        save_puzzle_button.setOnClickListener{
-            val drawable = bigPicture.drawable
+        binding.savePuzzleButton.setOnClickListener{
+            val drawable = binding.bigPicture.drawable
             val bitmap = (drawable as BitmapDrawable).bitmap
             val uri:Uri = storeImage(bitmap)
-            bigPicture.isVisible = false
-            Save_Success_Text.isVisible = true
-            Save_Success_Text.text = "saved: $uri"
+            binding.bigPicture.isVisible = false
+            binding.saveSuccessText.isVisible = true
+            binding.saveSuccessText.text = "saved: $uri"
         }
     }
 
@@ -101,7 +106,7 @@ class PuzzleFragment : Fragment() {
     private fun testRandomPhoto(randomURL : String = "") {
         //TODO add loading modal while picture is retrieved
         val Image_Url = randomURL
-        val imageView = bigPicture
+        val imageView = binding.bigPicture
         Picasso
             .with(context)
             .load(Image_Url)
