@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "650652261741",
+    "project_id": "puzzle-pic-f436a",
+    "storage_bucket": "puzzle-pic-f436a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650652261741:android:0bd1f0470e1b553a390e64",
+        "android_client_info": {
+          "package_name": "com.example.puzzlepic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "650652261741-q4mf9mv6mvg4dujl465cqemq4jbhvd7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFPhq4DOAsPh_7NDgPcoY1mJWIaXPZ6ng"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "650652261741-q4mf9mv6mvg4dujl465cqemq4jbhvd7o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
