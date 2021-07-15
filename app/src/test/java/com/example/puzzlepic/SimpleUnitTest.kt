@@ -20,7 +20,13 @@ class SimpleUnitTest {
     }
 
     @Test
-    fun confirmPicture_outputsPicture() {
+    fun testPictureDTO() {
+        confirmPopulatedPhotoURL_returnsPopulatedString()
+
+    }
+
+    @Test
+    fun confirmPopulatedPhotoURL_returnsPopulatedString() {
         confirmPhotoURL_returnsPhotoURL()
         val testURL = UnsplashPhotoUrls()
         val picture = Picture(
@@ -34,9 +40,26 @@ class SimpleUnitTest {
     }
 
     @Test
+    fun confirmDefaultPhotoURL_returnsDefualtString() {
+        confirmPhotoURL_returnsPhotoURL()
+        val picture = Picture()
+        assertEquals(": ", picture.toString())
+    }
+
+    @Test
     fun confirmPhotoURL_returnsPhotoURL() {
         val testURL = UnsplashPhotoUrls()
         assert(testURL !== null)
         assert(testURL is UnsplashPhotoUrls)
+        assert(defaultUnsplashURLisPopulated(testURL))
+    }
+
+    private fun defaultUnsplashURLisPopulated(testURL: UnsplashPhotoUrls): Boolean {
+        val EMPTY_STRING = ""
+        return (testURL.raw === EMPTY_STRING &&
+                testURL.full === EMPTY_STRING &&
+                testURL.regular === EMPTY_STRING &&
+                testURL.small === EMPTY_STRING &&
+                testURL.thumb === EMPTY_STRING)
     }
 }
