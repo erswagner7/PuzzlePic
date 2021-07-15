@@ -6,6 +6,7 @@ import android.view.MotionEvent
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GestureDetectorCompat
+import com.example.puzzlepic.ui.main.EventFragment
 import com.example.puzzlepic.ui.main.MainFragment
 
 class MainActivity : AppCompatActivity() {
@@ -84,7 +85,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onLeftSwipe() {
-        Toast.makeText(this, "Left Swipe", Toast.LENGTH_LONG).show()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, EventFragment.newInstance())
+            .commitNow()
+
     }
 
     private fun onSwipeRight() {
