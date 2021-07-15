@@ -20,14 +20,24 @@ class SimpleUnitTest {
     }
 
     @Test
-    fun testPictureDTO() {
-        confirmPopulatedPhotoURL_returnsPopulatedString()
+    fun confirmDefaultUnsplashURLisPopulated() {
+        val emptyString = ""
+        val testURL = UnsplashPhotoUrls()
+        assert( testURL.raw === emptyString &&
+                testURL.full === emptyString &&
+                testURL.regular === emptyString &&
+                testURL.small === emptyString &&
+                testURL.thumb === emptyString)
+    }
 
+    @Test
+    fun confirmDefaultPhotoURL_returnsDefaultString() {
+        val picture = Picture()
+        assertEquals(": ", picture.toString())
     }
 
     @Test
     fun confirmPopulatedPhotoURL_returnsPopulatedString() {
-        confirmPhotoURL_returnsPhotoURL()
         val testURL = UnsplashPhotoUrls()
         val picture = Picture(
             "testID",
@@ -37,29 +47,5 @@ class SimpleUnitTest {
             "testNotes",
             123, testURL)
         assertEquals("testTitle: Jan 1 1970", picture.toString())
-    }
-
-    @Test
-    fun confirmDefaultPhotoURL_returnsDefualtString() {
-        confirmPhotoURL_returnsPhotoURL()
-        val picture = Picture()
-        assertEquals(": ", picture.toString())
-    }
-
-    @Test
-    fun confirmPhotoURL_returnsPhotoURL() {
-        val testURL = UnsplashPhotoUrls()
-        assert(testURL !== null)
-        assert(testURL is UnsplashPhotoUrls)
-        assert(defaultUnsplashURLisPopulated(testURL))
-    }
-
-    private fun defaultUnsplashURLisPopulated(testURL: UnsplashPhotoUrls): Boolean {
-        val EMPTY_STRING = ""
-        return (testURL.raw === EMPTY_STRING &&
-                testURL.full === EMPTY_STRING &&
-                testURL.regular === EMPTY_STRING &&
-                testURL.small === EMPTY_STRING &&
-                testURL.thumb === EMPTY_STRING)
     }
 }
