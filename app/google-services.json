@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "650652261741-snrqs6nc97pkhj6ad8c1q4cg0p6tbeph.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.puzzlepic",
+            "certificate_hash": "4b3587db9b68719081cd37978870eb35b4fdd59b"
+          }
+        },
+        {
           "client_id": "650652261741-q4mf9mv6mvg4dujl465cqemq4jbhvd7o.apps.googleusercontent.com",
           "client_type": 3
         }
