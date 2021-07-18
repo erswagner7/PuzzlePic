@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_constraintTop_toBottomOf="@+id/appName"
+    android:background="@color/matteGray"
+    tools:context=".ui.puzzle.PuzzleFragment"
+    android:id="@+id/puzzle">
+
+    <LinearLayout
+        android:id="@+id/topNavBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/creamBackground"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <ImageButton
+            android:id="@+id/navBarImageButton"
+            android:layout_width="@dimen/image_button_xlarge"
+            android:layout_height="@dimen/image_button_xlarge"
+            android:background="@color/creamBackground"
+            android:contentDescription="@string/navbar_image_button_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_image"
+            tools:src="@drawable/ic_image" />
+
+        <ImageButton
+            android:id="@+id/navBarCameraButton"
+            android:layout_width="@dimen/image_button_xlarge"
+            android:layout_height="@dimen/image_button_xlarge"
+            android:background="@color/creamBackground"
+            android:contentDescription="@string/navbar_camera_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_camera" />
+
+        <ImageButton
+            android:id="@+id/navBarUserButton"
+            android:layout_width="@dimen/image_button_xlarge"
+            android:layout_height="@dimen/image_button_xlarge"
+            android:background="@color/creamBackground"
+            android:contentDescription="@string/navbar_user_image_description"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_user" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/bigPicture"
+        android:layout_width="320dp"
+        android:layout_height="450dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="66dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginBottom="87dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topNavBar"
+        tools:ignore="MissingConstraints"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <Button
+        android:id="@+id/savePuzzleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="142dp"
+        android:layout_marginLeft="142dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="143dp"
+        android:layout_marginRight="143dp"
+        android:layout_marginBottom="16dp"
+        android:text="Save Image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bigPicture"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/saveSuccessText"
+        android:layout_width="326dp"
+        android:layout_height="116dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginRight="23dp"
+        android:layout_marginBottom="2dp"
+        android:text="TextView"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/savePuzzleButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topNavBar"
+        tools:visibility="invisible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
