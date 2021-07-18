@@ -27,7 +27,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.puzzlepic.R
 import com.example.puzzlepic.dto.Picture
-import com.example.puzzlepic.databinding.MainFragmentBinding
+import kotlinx.android.synthetic.main.main_fragment.*
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -45,9 +45,6 @@ class MainFragment : Fragment() {
     protected var puzzleURI : Uri? = null
     private var puzzles : ArrayList<Picture> = ArrayList<Picture>()
 
-    private var _binding: MainFragmentBinding? = null
-    private val binding get() = _binding!!
-
     companion object {
         fun newInstance() = MainFragment()
     }
@@ -56,9 +53,7 @@ class MainFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
-        _binding = MainFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -70,11 +65,11 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         // TODO: Use the ViewModel
-        binding.navBarCameraButton.setOnClickListener{
+        navBarCameraButton.setOnClickListener{
             prepTakePhoto()
         }
 
-        binding.randomPuzzleButton.setOnClickListener {
+        randomPuzzleButton.setOnClickListener {
             val rnds = (0..viewModel.picture.value!!.size).random() // generated random from 0 to size of current photo array included
             var randomURL = viewModel.picture.value?.get(rnds)!!.urls.raw.toString()
             if(randomURL != null) {
@@ -89,7 +84,7 @@ class MainFragment : Fragment() {
             }
         }
 
-        binding.navBarImageButton.setOnClickListener {
+        navBarImageButton.setOnClickListener {
             prepOpenUserPuzzleGallery()
         }
 
@@ -166,7 +161,7 @@ class MainFragment : Fragment() {
         if (resultCode == RESULT_OK) {
             if (requestCode == CAMERA_REQUEST_CODE) {
                 val imageBitmap = data!!.extras!!.get("data") as Bitmap
-                binding.image1.setImageBitmap(imageBitmap)
+                image1.setImageBitmap(imageBitmap)
             } else if (requestCode == SAVE_IMAGE_REQUEST_CODE) {
                 Toast.makeText(context, "Puzzle Saved", Toast.LENGTH_LONG).show()
                 var puzzle = Picture(localUri = puzzleURI.toString())
@@ -177,7 +172,7 @@ class MainFragment : Fragment() {
                     val source =
                         ImageDecoder.createSource(requireActivity().contentResolver, image!!)
                     val bitmap = ImageDecoder.decodeBitmap(source)
-                    binding.image1.setImageBitmap(bitmap)
+                    image1.setImageBitmap(bitmap)
                 }
             }
         }
@@ -193,9 +188,5 @@ class MainFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
 }
