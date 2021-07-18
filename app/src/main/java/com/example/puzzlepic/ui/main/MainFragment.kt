@@ -68,7 +68,10 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        activity.let{
+            viewModel = ViewModelProviders.of(it!!).get(MainViewModel::class.java)
+
+        }
         // TODO: Use the ViewModel
         binding.navBarCameraButton.setOnClickListener{
             prepTakePhoto()
