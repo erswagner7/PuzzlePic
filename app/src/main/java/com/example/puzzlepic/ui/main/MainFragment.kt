@@ -42,15 +42,11 @@ class MainFragment : Fragment() {
     private lateinit var currentPhotoPath: String
     lateinit var navController: NavController
 
-    protected var puzzleURI : Uri? = null
+    protected var puzzleUri : Uri? = null
     private var puzzles : ArrayList<Picture> = ArrayList<Picture>()
 
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
-
-    companion object {
-        fun newInstance() = MainFragment()
-    }
 
     private lateinit var viewModel: MainViewModel
 
@@ -76,9 +72,9 @@ class MainFragment : Fragment() {
 
         binding.randomPuzzleButton.setOnClickListener {
             val rnds = (0..viewModel.picture.value!!.size).random() // generated random from 0 to size of current photo array included
-            var randomURL = viewModel.picture.value?.get(rnds)!!.urls.raw.toString()
-            if(randomURL != null) {
-                val bundle = bundleOf("url" to randomURL)
+            var randomUrl = viewModel.picture.value?.get(rnds)!!.urls.raw.toString()
+            if(randomUrl != null) {
+                val bundle = bundleOf("url" to randomUrl)
 
                 /**
                  * This will take us to our puzzle fragment using the action defined in our nav_graph
@@ -118,7 +114,6 @@ class MainFragment : Fragment() {
         }
     }
 
-
         override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -130,12 +125,11 @@ class MainFragment : Fragment() {
                 if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     takePhoto()
                 } else {
-                    Toast.makeText(context, "Unable to take photo without permission", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Unable to take photo without permission, goto Apps & notifications within android settings to enable", Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
-
 
     /**
      * Will take a photo a save it to be later shuffled/randomized into a puzzle
@@ -148,7 +142,7 @@ class MainFragment : Fragment() {
             } else {
                 val photoFile: File = createImageFile()
                 photoFile?.also {
-                        puzzleURI = FileProvider.getUriForFile(
+                        puzzleUri = FileProvider.getUriForFile(
                         requireActivity().applicationContext,
                         "com.puzzlepic.android.fileprovider",
                         it
@@ -169,7 +163,7 @@ class MainFragment : Fragment() {
                 binding.image1.setImageBitmap(imageBitmap)
             } else if (requestCode == SAVE_IMAGE_REQUEST_CODE) {
                 Toast.makeText(context, "Puzzle Saved", Toast.LENGTH_LONG).show()
-                var puzzle = Picture(localUri = puzzleURI.toString())
+                var puzzle = Picture(localUri = puzzleUri.toString())
                 puzzles.add(puzzle)
             } else if (requestCode == PUZZLE_GALLERY_REQUEST_CODE) {
                 if (data != null && data.data != null) {
@@ -196,6 +190,10 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        fun newInstance() = MainFragment()
     }
 
 }
