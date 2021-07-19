@@ -9,6 +9,26 @@
     tools:context=".ui.puzzle.PuzzleFragment"
     android:id="@+id/puzzle">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="346dp"
+        android:layout_height="572dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="32dp"
+        android:visibility="visible"
+        android:layout_alignParentBottom="true"
+        android:elevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
     <LinearLayout
         android:id="@+id/topNavBar"
         android:layout_width="0dp"
