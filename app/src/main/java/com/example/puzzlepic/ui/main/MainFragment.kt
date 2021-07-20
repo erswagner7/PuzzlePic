@@ -28,6 +28,9 @@ import androidx.navigation.Navigation
 import com.example.puzzlepic.R
 import com.example.puzzlepic.dto.Picture
 import com.example.puzzlepic.databinding.MainFragmentBinding
+import com.firebase.ui.auth.AuthUI
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,6 +40,7 @@ class MainFragment : Fragment() {
     private val PUZZLE_GALLERY_REQUEST_CODE: Int = 2001
     private val SAVE_IMAGE_REQUEST_CODE: Int = 1999
     private val CAMERA_REQUEST_CODE: Int = 1998
+    private val AUTH_REQUEST_CODE = 2002
     val CAMERA_PERMISSION_REQUEST_CODE = 1997
 
     private lateinit var currentPhotoPath: String
@@ -47,6 +51,8 @@ class MainFragment : Fragment() {
 
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
+
+    private var user : FirebaseUser? = null
 
     companion object {
         fun newInstance() = MainFragment()
@@ -93,6 +99,22 @@ class MainFragment : Fragment() {
             prepOpenUserPuzzleGallery()
         }
 
+        binding.navBarUserButton.setOnClickListener{
+            logon()
+        }
+
+    }
+    /*
+     * App Login Function
+     */
+    private fun logon(){
+        var providers = arrayListOf(
+            AuthUI.IdpConfig.EmailBuilder().build(),
+            AuthUI.IdpConfig.GoogleBuilder().build()
+        )
+        startActivityForResult(
+            AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).build(), AUTH_REQUEST_CODE
+        )
     }
 
     /*
@@ -179,6 +201,8 @@ class MainFragment : Fragment() {
                     val bitmap = ImageDecoder.decodeBitmap(source)
                     binding.image1.setImageBitmap(bitmap)
                 }
+            } else if(requestCode == AUTH_REQUEST_CODE){
+                user = FirebaseAuth.getInstance().currentUser
             }
         }
     }
