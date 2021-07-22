@@ -33,7 +33,7 @@ class SimpleUnitTest {
     @Test
     fun confirmDefaultPhotoURL_returnsDefaultString() {
         val picture = Picture()
-        assertEquals(": ", picture.toString())
+        assertEquals("", picture.toString())
     }
 
     @Test

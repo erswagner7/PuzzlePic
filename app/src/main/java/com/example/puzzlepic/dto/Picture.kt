@@ -14,8 +14,7 @@ data class Picture(@SerializedName("id") var pictureID : String = "",
                    @SerializedName("urls") var urls : UnsplashPhotoUrls = UnsplashPhotoUrls(),
                    var localUri : String = "" ) {
         override fun toString() : String {
-            return pictureTitle
-            return date
+            return "$pictureTitle: $date"
         }
 
     }
