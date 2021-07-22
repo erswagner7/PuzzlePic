@@ -2,6 +2,7 @@
 
 package com.example.puzzlepic.ui.main
 
+//import kotlinx.android.synthetic.main.main_fragment.*
 import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -9,9 +10,8 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
-import android.os.Bundle
-import android.os.Environment
+import android.os.*
+import android.os.Looper.getMainLooper
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
@@ -21,13 +21,14 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.puzzlepic.R
-import com.example.puzzlepic.dto.Picture
 import com.example.puzzlepic.databinding.MainFragmentBinding
+import com.example.puzzlepic.dto.Picture
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -70,6 +71,10 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
+        initiateLoading()
+        Handler(getMainLooper()).postDelayed({
+            loadingComplete()
+        }, 7000)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -116,6 +121,7 @@ class MainFragment : Fragment() {
             AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).build(), AUTH_REQUEST_CODE
         )
     }
+
 
     /*
      * will request permission for and open users puzzle
@@ -216,6 +222,93 @@ class MainFragment : Fragment() {
             currentPhotoPath = absolutePath
         }
     }
+
+    fun initiateLoading() {
+        binding.progressBar.isVisible = true
+        toggleButtons("off")
+    }
+
+    fun loadingComplete(){
+        if(viewModel.picture.value!!.size > 0){
+            binding.progressBar.isVisible = false
+            toggleButtons("on")
+        }
+        else{
+            Handler(Looper.getMainLooper()).postDelayed({
+                loadingComplete()
+            }, 3000)
+        }
+    }
+
+    private fun toggleButtons(enable  : String = "") {
+        if(enable == "off") {
+            binding.navBarCameraButton.also{
+                it.isEnabled = false
+                it.alpha = 0.3F
+            }
+            binding.randomPuzzleButton.also{
+                it.isEnabled = false
+                it.alpha = 0.3F
+            }
+            binding.navBarImageButton.also{
+                it.isEnabled = false
+                it.alpha = 0.3F
+            }
+            binding.navBarUserButton.also{
+                it.isEnabled = false
+                it.alpha = 0.3F
+            }
+            binding.button2.also{
+                it.isEnabled = false
+                it.alpha = 0.3F
+            }
+        }
+        else if(enable == "on"){
+            binding.navBarCameraButton.also{
+                it.isEnabled = true
+                it.alpha = 1F
+            }
+            binding.randomPuzzleButton.also{
+                it.isEnabled = true
+                it.alpha = 1F
+            }
+            binding.navBarImageButton.also{
+                it.isEnabled = true
+                it.alpha = 1F
+            }
+            binding.navBarUserButton.also{
+                it.isEnabled = true
+                it.alpha = 1F
+            }
+            binding.button2.also{
+                it.isEnabled = true
+                it.alpha = 1F
+            }
+        }
+        else {
+            binding.navBarCameraButton.also{
+                it.isEnabled = !it.isEnabled
+                it.alpha = if (it.isEnabled) 1F else .3f
+            }
+            binding.randomPuzzleButton.also{
+                it.isEnabled = !it.isEnabled
+                it.alpha = if (it.isEnabled) 1F else .3f
+            }
+            binding.navBarImageButton.also{
+                it.isEnabled = !it.isEnabled
+                it.alpha = if (it.isEnabled) 1F else .3f
+            }
+            binding.navBarUserButton.also{
+                it.isEnabled = !it.isEnabled
+                it.alpha = if (it.isEnabled) 1F else .3f
+            }
+            binding.button2.also{
+                it.isEnabled = !it.isEnabled
+                it.alpha = if (it.isEnabled) 1F else .3f
+            }
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

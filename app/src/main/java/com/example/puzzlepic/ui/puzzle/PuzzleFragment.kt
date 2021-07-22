@@ -6,6 +6,8 @@ import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +16,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.puzzlepic.R
-import com.squareup.picasso.Picasso
 import com.example.puzzlepic.databinding.PuzzleFragmentBinding
+import com.squareup.picasso.Picasso
 import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
@@ -54,6 +56,10 @@ class PuzzleFragment : Fragment() {
         if (randomUrl !== null) {
             testRandomPhoto(randomUrl)
         }
+        initiateLoading()
+        Handler(Looper.getMainLooper()).postDelayed({
+            loadingComplete()
+        }, 10000)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -104,7 +110,6 @@ class PuzzleFragment : Fragment() {
      * "Get Random Puzzle Button" is selected
      */
     private fun testRandomPhoto(randomURL : String = "") {
-        //TODO add loading modal while picture is retrieved
         val Image_Url = randomURL
         val imageView = binding.bigPicture
         Picasso
@@ -121,6 +126,80 @@ class PuzzleFragment : Fragment() {
         val storageDir: File? = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile("PuzzlePic${timestamp}", ".jpg", storageDir).apply {
             currentPhotoPath = absolutePath
+        }
+    }
+
+    fun initiateLoading() {
+        binding.progressBar.isVisible = true
+        toggleButtons("off")
+    }
+
+    fun loadingComplete(){
+        if(binding.bigPicture.drawable != null){
+            binding.progressBar.isVisible = false
+            toggleButtons("on")
+        }
+        else{
+            Handler(Looper.getMainLooper()).postDelayed({
+                loadingComplete()
+            }, 3000)
+        }
+    }
+
+    private fun toggleButtons(enable  : String = "") {
+        if(enable == "off") {
+            binding.navBarCameraButton.also{
+                it.isEnabled = false
+                it.alpha = 0.3F
+            }
+            binding.savePuzzleButton.also{
+                it.isEnabled = false
+                it.alpha = 0.3F
+            }
+            binding.navBarImageButton.also{
+                it.isEnabled = false
+                it.alpha = 0.3F
+            }
+            binding.navBarUserButton.also{
+                it.isEnabled = false
+                it.alpha = 0.3F
+            }
+        }
+        else if(enable == "on"){
+            binding.navBarCameraButton.also{
+                it.isEnabled = true
+                it.alpha = 1F
+            }
+            binding.savePuzzleButton.also{
+                it.isEnabled = true
+                it.alpha = 1F
+            }
+            binding.navBarImageButton.also{
+                it.isEnabled = true
+                it.alpha = 1F
+            }
+            binding.navBarUserButton.also{
+                it.isEnabled = true
+                it.alpha = 1F
+            }
+        }
+        else {
+            binding.navBarCameraButton.also{
+                it.isEnabled = !it.isEnabled
+                it.alpha = if (it.isEnabled) 1F else .3f
+            }
+            binding.savePuzzleButton.also{
+                it.isEnabled = !it.isEnabled
+                it.alpha = if (it.isEnabled) 1F else .3f
+            }
+            binding.navBarImageButton.also{
+                it.isEnabled = !it.isEnabled
+                it.alpha = if (it.isEnabled) 1F else .3f
+            }
+            binding.navBarUserButton.also{
+                it.isEnabled = !it.isEnabled
+                it.alpha = if (it.isEnabled) 1F else .3f
+            }
         }
     }
 
