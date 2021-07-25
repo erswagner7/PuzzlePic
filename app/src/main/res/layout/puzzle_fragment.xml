@@ -42,8 +42,8 @@
 
         <ImageButton
             android:id="@+id/navBarImageButton"
-            android:layout_width="@dimen/image_button_xlarge"
-            android:layout_height="@dimen/image_button_xlarge"
+            android:layout_width="@dimen/buttons_width"
+            android:layout_height="@dimen/buttons_height"
             android:background="@color/creamBackground"
             android:contentDescription="@string/navbar_image_button_description"
             android:scaleType="fitCenter"
@@ -52,8 +52,8 @@
 
         <ImageButton
             android:id="@+id/navBarCameraButton"
-            android:layout_width="@dimen/image_button_xlarge"
-            android:layout_height="@dimen/image_button_xlarge"
+            android:layout_width="@dimen/buttons_width"
+            android:layout_height="@dimen/buttons_height"
             android:background="@color/creamBackground"
             android:contentDescription="@string/navbar_camera_description"
             android:scaleType="fitCenter"
@@ -61,8 +61,8 @@
 
         <ImageButton
             android:id="@+id/navBarUserButton"
-            android:layout_width="@dimen/image_button_xlarge"
-            android:layout_height="@dimen/image_button_xlarge"
+            android:layout_width="@dimen/buttons_width"
+            android:layout_height="@dimen/buttons_height"
             android:background="@color/creamBackground"
             android:contentDescription="@string/navbar_user_image_description"
             android:scaleType="fitCenter"
