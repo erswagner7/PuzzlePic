@@ -17,14 +17,14 @@ object RetrofitClientInstance {
         return retrofit
     }
 
-    private fun createRetrofitObject(){
-        //has this object been created?
-        if(retrofit == null){
-            //then create it
-            retrofit = retrofit2.Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+    fun createRetrofitObject() =
+        when(retrofit) {
+        null -> RetrofitClientInstance.retrofit = retrofit2.Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        else -> {
+            //retrofit object already exists
         }
     }
 }
