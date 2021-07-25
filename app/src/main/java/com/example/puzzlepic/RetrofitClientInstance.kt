@@ -13,6 +13,11 @@ object RetrofitClientInstance {
     val retrofitInstance : Retrofit?
 
     get(){
+        createRetrofitObject()
+        return retrofit
+    }
+
+    private fun createRetrofitObject(){
         //has this object been created?
         if(retrofit == null){
             //then create it
@@ -21,6 +26,5 @@ object RetrofitClientInstance {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }
-        return retrofit
     }
 }
