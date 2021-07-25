@@ -41,9 +41,9 @@ class MainFragment : Fragment() {
     private val PUZZLE_GALLERY_REQUEST_CODE: Int = 2001
     private val SAVE_IMAGE_REQUEST_CODE: Int = 1999
     private val CAMERA_REQUEST_CODE: Int = 1998
+    private val CAMERA_PERMISSION_REQUEST_CODE = 1997
     private val AUTH_REQUEST_CODE = 2002
-    val CAMERA_PERMISSION_REQUEST_CODE = 1997
-
+    
     private lateinit var currentPhotoPath: String
     lateinit var navController: NavController
 
@@ -314,5 +314,4 @@ class MainFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

@@ -23,7 +23,7 @@ class PictureService {
      * Uses a callback to retrieve json data from network and handles response accordingly
      * @return an LiveArrayList of pictures.
      */
-    fun fetchPicture() : MutableLiveData<ArrayList<Picture>> {
+   internal fun fetchPicture() : MutableLiveData<ArrayList<Picture>> {
 
         var picture = MutableLiveData<ArrayList<Picture>>()
         val service = RetrofitClientInstance.retrofitInstance?.create(IPictureDAO::class.java)
