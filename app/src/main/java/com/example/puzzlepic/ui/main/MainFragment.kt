@@ -55,6 +55,10 @@ class MainFragment : Fragment() {
 
     private var user : FirebaseUser? = null
 
+    companion object {
+        fun newInstance() = MainFragment()
+    }
+
     private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -80,7 +84,7 @@ class MainFragment : Fragment() {
         binding.navBarCameraButton.setOnClickListener{
             prepTakePhoto()
         }
-        
+
         binding.randomPuzzleButton.setOnClickListener {
             val rnds = (0..viewModel.picture.value!!.size).random() // generated random from 0 to size of current photo array included
             var randomURL = viewModel.picture.value?.get(rnds)!!.urls.raw.toString()
@@ -310,4 +314,5 @@ class MainFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }
