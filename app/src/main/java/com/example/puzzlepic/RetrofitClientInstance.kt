@@ -2,6 +2,7 @@ package com.example.puzzlepic
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 
 
 
@@ -19,12 +20,14 @@ object RetrofitClientInstance {
 
     fun createRetrofitObject() =
         when(retrofit) {
-        null -> RetrofitClientInstance.retrofit = retrofit2.Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        else -> {
-            //retrofit object already exists
+            null -> RetrofitClientInstance.retrofit = retrofit2.Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+            else -> {
+                //retrofit object already exists
+                File("application.log").writeText("Tried to create new retrofit object, object already exists")
+            }
         }
-    }
 }
+//
