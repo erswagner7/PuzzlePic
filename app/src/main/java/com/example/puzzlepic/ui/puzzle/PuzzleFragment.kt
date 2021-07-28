@@ -5,25 +5,20 @@ import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.puzzlepic.R
 import com.example.puzzlepic.databinding.PuzzleFragmentBinding
 import com.example.puzzlepic.ui.main.SuperFragment
 import com.squareup.picasso.Picasso
-import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class PuzzleFragment : SuperFragment() {
@@ -120,16 +115,6 @@ class PuzzleFragment : SuperFragment() {
             .into(imageView)
     }
 
-    private fun createImageFile() : File {
-        // genererate a unique filename with date.
-        val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        // get access to the directory where we can write pictures.
-        val storageDir: File? = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile("PuzzlePic${timestamp}", ".jpg", storageDir).apply {
-            currentPhotoPath = absolutePath
-        }
-    }
-
     fun initiateLoading() {
         binding.progressBar.isVisible = true
         toggleButtons("off")
@@ -147,59 +132,61 @@ class PuzzleFragment : SuperFragment() {
         }
     }
 
-    private fun toggleButtons(enable  : String = "") {
-        if(enable == "off") {
-            binding.navBarCameraButton.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
+    private fun toggleButtons(enable: String = "") {
+        when (enable) {
+            "off" -> {
+                binding.navBarCameraButton.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
+                binding.savePuzzleButton.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
+                binding.navBarImageButton.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
+                binding.navBarUserButton.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
             }
-            binding.savePuzzleButton.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
+            "on" -> {
+                binding.navBarCameraButton.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
+                binding.savePuzzleButton.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
+                binding.navBarImageButton.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
+                binding.navBarUserButton.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
             }
-            binding.navBarImageButton.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
-            }
-            binding.navBarUserButton.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
-            }
-        }
-        else if(enable == "on"){
-            binding.navBarCameraButton.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-            binding.savePuzzleButton.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-            binding.navBarImageButton.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-            binding.navBarUserButton.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-        }
-        else {
-            binding.navBarCameraButton.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
-            }
-            binding.savePuzzleButton.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
-            }
-            binding.navBarImageButton.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
-            }
-            binding.navBarUserButton.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
+            else -> {
+                binding.navBarCameraButton.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
+                binding.savePuzzleButton.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
+                binding.navBarImageButton.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
+                binding.navBarUserButton.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
             }
         }
     }

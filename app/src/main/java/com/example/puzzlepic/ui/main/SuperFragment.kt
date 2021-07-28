@@ -55,7 +55,7 @@ open class SuperFragment: Fragment() {
         }
     }
 
-    private fun createImageFile() : File {
+    protected fun createImageFile() : File {
         // genererate a unique filename with date.
         val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         // get access to the directory where we can write pictures.
