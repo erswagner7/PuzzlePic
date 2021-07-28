@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.puzzlepic.R
 import com.example.puzzlepic.databinding.PuzzleFragmentBinding
+import com.example.puzzlepic.ui.main.SuperFragment
 import com.squareup.picasso.Picasso
 import java.io.File
 import java.io.FileOutputStream
@@ -25,7 +26,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class PuzzleFragment : Fragment() {
+class PuzzleFragment : SuperFragment() {
 
     lateinit var randomUrl: String
     lateinit var navController: NavController
