@@ -33,7 +33,7 @@ class MainFragment : SuperFragment() {
     private val CAMERA_REQUEST_CODE: Int = 1998
     private val AUTH_REQUEST_CODE = 2002
 
-    lateinit var navController: NavController
+    private lateinit var navController: NavController
 
     private var puzzles : ArrayList<Picture> = ArrayList<Picture>()
 
@@ -42,17 +42,12 @@ class MainFragment : SuperFragment() {
 
     private var user : FirebaseUser? = null
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
     private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -163,12 +158,12 @@ class MainFragment : SuperFragment() {
         }
     }
 
-    fun initiateLoading() {
+    private fun initiateLoading() {
         binding.progressBar.isVisible = true
         toggleButtons("off")
     }
 
-    fun loadingComplete(){
+    private fun loadingComplete(){
         if(viewModel.picture.value!!.size > 0){
             binding.progressBar.isVisible = false
             toggleButtons("on")

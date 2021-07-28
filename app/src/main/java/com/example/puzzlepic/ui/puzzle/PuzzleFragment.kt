@@ -23,9 +23,8 @@ import java.io.OutputStream
 
 class PuzzleFragment : SuperFragment() {
 
-    lateinit var randomUrl: String
-    lateinit var navController: NavController
-    private lateinit var currentPhotoPath: String
+    private lateinit var randomUrl: String
+    private lateinit var navController: NavController
 
     private var _binding: PuzzleFragmentBinding? = null
     private val binding get() = _binding!!
@@ -42,16 +41,15 @@ class PuzzleFragment : SuperFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         _binding = PuzzleFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
-        if (randomUrl !== null) {
-            testRandomPhoto(randomUrl)
-        }
+
+        testRandomPhoto(randomUrl)
+
         initiateLoading()
         Handler(Looper.getMainLooper()).postDelayed({
             loadingComplete()
@@ -66,7 +64,7 @@ class PuzzleFragment : SuperFragment() {
          * on the navbar which will navigate us back using the action defined in our nav_graph
          */
         binding.navBarImageButton.setOnClickListener {
-            navController!!.navigate(R.id.action_puzzleFragment_to_mainFragment)
+            navController.navigate(R.id.action_puzzleFragment_to_mainFragment)
         }
 
 
@@ -106,21 +104,20 @@ class PuzzleFragment : SuperFragment() {
      * "Get Random Puzzle Button" is selected
      */
     private fun testRandomPhoto(randomURL : String = "") {
-        val Image_Url = randomURL
         val imageView = binding.bigPicture
         Picasso
             .with(context)
-            .load(Image_Url)
+            .load(randomURL)
             .resize(320,450)
             .into(imageView)
     }
 
-    fun initiateLoading() {
+    private fun initiateLoading() {
         binding.progressBar.isVisible = true
         toggleButtons("off")
     }
 
-    fun loadingComplete(){
+    private fun loadingComplete(){
         if(binding.bigPicture.drawable != null){
             binding.progressBar.isVisible = false
             toggleButtons("on")
