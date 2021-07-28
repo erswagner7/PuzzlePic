@@ -73,8 +73,8 @@ class MainFragment : SuperFragment() {
         }
 
         binding.randomPuzzleButton.setOnClickListener {
-            val rnds = (0..viewModel.picture.value!!.size).random() // generated random from 0 to size of current photo array included
-            var randomURL = viewModel.picture.value?.get(rnds)!!.urls.raw.toString()
+            val rand = (0..viewModel.picture.value!!.size).random() // generated random from 0 to size of current photo array included
+            val randomURL = viewModel.picture.value?.get(rand)!!.urls.raw
             if(randomURL != null) {
                 val bundle = bundleOf("url" to randomURL)
 
@@ -83,7 +83,7 @@ class MainFragment : SuperFragment() {
                  * with a url as an argument to pass in the
                  * bundle
                  */
-                navController!!.navigate(R.id.action_mainFragment_to_puzzleFragment, bundle)
+                navController.navigate(R.id.action_mainFragment_to_puzzleFragment, bundle)
             }
         }
 
@@ -100,7 +100,7 @@ class MainFragment : SuperFragment() {
      * App Login Function
      */
     private fun logon(){
-        var providers = arrayListOf(
+        val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.GoogleBuilder().build()
         )
@@ -147,7 +147,7 @@ class MainFragment : SuperFragment() {
                 binding.image1.setImageBitmap(imageBitmap)
             } else if (requestCode == SAVE_IMAGE_REQUEST_CODE) {
                 Toast.makeText(context, "Puzzle Saved", Toast.LENGTH_LONG).show()
-                var puzzle = Picture(localUri = puzzleURI.toString())
+                val puzzle = Picture(localUri = puzzleURI.toString())
                 puzzles.add(puzzle)
             } else if (requestCode == PUZZLE_GALLERY_REQUEST_CODE) {
                 if (data != null && data.data != null) {
@@ -174,77 +174,79 @@ class MainFragment : SuperFragment() {
             toggleButtons("on")
         }
         else{
-            Handler(Looper.getMainLooper()).postDelayed({
+            Handler(getMainLooper()).postDelayed({
                 loadingComplete()
             }, 3000)
         }
     }
 
     private fun toggleButtons(enable  : String = "") {
-        if(enable == "off") {
-            binding.navBarCameraButton.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
+        when (enable) {
+            "off" -> {
+                binding.navBarCameraButton.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
+                binding.randomPuzzleButton.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
+                binding.navBarImageButton.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
+                binding.navBarUserButton.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
+                binding.button2.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
             }
-            binding.randomPuzzleButton.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
+            "on" -> {
+                binding.navBarCameraButton.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
+                binding.randomPuzzleButton.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
+                binding.navBarImageButton.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
+                binding.navBarUserButton.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
+                binding.button2.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
             }
-            binding.navBarImageButton.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
-            }
-            binding.navBarUserButton.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
-            }
-            binding.button2.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
-            }
-        }
-        else if(enable == "on"){
-            binding.navBarCameraButton.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-            binding.randomPuzzleButton.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-            binding.navBarImageButton.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-            binding.navBarUserButton.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-            binding.button2.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-        }
-        else {
-            binding.navBarCameraButton.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
-            }
-            binding.randomPuzzleButton.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
-            }
-            binding.navBarImageButton.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
-            }
-            binding.navBarUserButton.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
-            }
-            binding.button2.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
+            else -> {
+                binding.navBarCameraButton.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
+                binding.randomPuzzleButton.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
+                binding.navBarImageButton.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
+                binding.navBarUserButton.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
+                binding.button2.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
             }
         }
     }
