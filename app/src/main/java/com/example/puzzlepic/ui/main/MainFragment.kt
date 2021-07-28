@@ -2,14 +2,10 @@
 
 package com.example.puzzlepic.ui.main
 
-//import kotlinx.android.synthetic.main.main_fragment.*
-import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
-import android.net.Uri
 import android.os.*
 import android.os.Looper.getMainLooper
 import android.provider.MediaStore
@@ -18,11 +14,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -32,22 +25,16 @@ import com.example.puzzlepic.dto.Picture
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import java.io.File
-import java.text.SimpleDateFormat
 import java.util.*
 
-class MainFragment : Fragment() {
+class MainFragment : SuperFragment() {
 
     private val PUZZLE_GALLERY_REQUEST_CODE: Int = 2001
-    private val SAVE_IMAGE_REQUEST_CODE: Int = 1999
     private val CAMERA_REQUEST_CODE: Int = 1998
-    private val CAMERA_PERMISSION_REQUEST_CODE = 1997
     private val AUTH_REQUEST_CODE = 2002
-    
-    private lateinit var currentPhotoPath: String
-    lateinit var navController: NavController
 
-    protected var puzzleURI : Uri? = null
+    private lateinit var navController: NavController
+
     private var puzzles : ArrayList<Picture> = ArrayList<Picture>()
 
     private var _binding: MainFragmentBinding? = null
@@ -55,17 +42,12 @@ class MainFragment : Fragment() {
 
     private var user : FirebaseUser? = null
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
     private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -86,8 +68,8 @@ class MainFragment : Fragment() {
         }
 
         binding.randomPuzzleButton.setOnClickListener {
-            val rnds = (0..viewModel.picture.value!!.size).random() // generated random from 0 to size of current photo array included
-            var randomURL = viewModel.picture.value?.get(rnds)!!.urls.raw.toString()
+            val rand = (0..viewModel.picture.value!!.size).random() // generated random from 0 to size of current photo array included
+            val randomURL = viewModel.picture.value?.get(rand)!!.urls.raw
             if(randomURL != null) {
                 val bundle = bundleOf("url" to randomURL)
 
@@ -96,7 +78,7 @@ class MainFragment : Fragment() {
                  * with a url as an argument to pass in the
                  * bundle
                  */
-                navController!!.navigate(R.id.action_mainFragment_to_puzzleFragment, bundle)
+                navController.navigate(R.id.action_mainFragment_to_puzzleFragment, bundle)
             }
         }
 
@@ -113,7 +95,7 @@ class MainFragment : Fragment() {
      * App Login Function
      */
     private fun logon(){
-        var providers = arrayListOf(
+        val providers = arrayListOf(
             AuthUI.IdpConfig.EmailBuilder().build(),
             AuthUI.IdpConfig.GoogleBuilder().build()
         )
@@ -134,59 +116,22 @@ class MainFragment : Fragment() {
         }
     }
 
-    /**
-     * See if there is permission to take photo
-     */
-    private fun prepTakePhoto(){
-        if(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
-            takePhoto()
-        } else {
-            val permissionRequest = arrayOf(Manifest.permission.CAMERA)
-            requestPermissions(permissionRequest, CAMERA_PERMISSION_REQUEST_CODE)
-        }
-    }
 
-
-        override fun onRequestPermissionsResult(
+    override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ){
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when(requestCode){
-            CAMERA_PERMISSION_REQUEST_CODE -> {
-                if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    takePhoto()
-                } else {
-                    Toast.makeText(context, "Unable to take photo without permission", Toast.LENGTH_LONG).show()
-                }
+            //local-level request code responses here
+
+            else -> {
+                // call to superclass
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults)
             }
         }
     }
 
-
-    /**
-     * Will take a photo a save it to be later shuffled/randomized into a puzzle
-     */
-    private fun takePhoto(){
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            takePictureIntent.resolveActivity(requireContext().packageManager)
-            if (takePictureIntent == null) {
-                Toast.makeText(context, "Unable to save puzzle", Toast.LENGTH_LONG).show()
-            } else {
-                val photoFile: File = createImageFile()
-                photoFile?.also {
-                        puzzleURI = FileProvider.getUriForFile(
-                        requireActivity().applicationContext,
-                        "com.puzzlepic.android.fileprovider",
-                        it
-                    )
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile)
-                    startActivityForResult(takePictureIntent, SAVE_IMAGE_REQUEST_CODE)
-                }
-            }
-        }
-    }
 
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -197,7 +142,7 @@ class MainFragment : Fragment() {
                 binding.image1.setImageBitmap(imageBitmap)
             } else if (requestCode == SAVE_IMAGE_REQUEST_CODE) {
                 Toast.makeText(context, "Puzzle Saved", Toast.LENGTH_LONG).show()
-                var puzzle = Picture(localUri = puzzleURI.toString())
+                val puzzle = Picture(localUri = puzzleURI.toString())
                 puzzles.add(puzzle)
             } else if (requestCode == PUZZLE_GALLERY_REQUEST_CODE) {
                 if (data != null && data.data != null) {
@@ -213,98 +158,90 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun createImageFile() : File {
-        // genererate a unique filename with date.
-        val timestamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        // get access to the directory where we can write pictures.
-        val storageDir:File? = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        return File.createTempFile("PuzzlePic${timestamp}", ".jpg", storageDir).apply {
-            currentPhotoPath = absolutePath
-        }
-    }
-
-    fun initiateLoading() {
+    private fun initiateLoading() {
         binding.progressBar.isVisible = true
         toggleButtons("off")
     }
 
-    fun loadingComplete(){
+    private fun loadingComplete(){
         if(viewModel.picture.value!!.size > 0){
             binding.progressBar.isVisible = false
             toggleButtons("on")
         }
         else{
-            Handler(Looper.getMainLooper()).postDelayed({
+            Handler(getMainLooper()).postDelayed({
                 loadingComplete()
             }, 3000)
         }
     }
 
     private fun toggleButtons(enable  : String = "") {
-        if(enable == "off") {
-            binding.navBarCameraButton.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
+        when (enable) {
+            "off" -> {
+                binding.navBarCameraButton.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
+                binding.randomPuzzleButton.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
+                binding.navBarImageButton.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
+                binding.navBarUserButton.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
+                binding.button2.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
             }
-            binding.randomPuzzleButton.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
+            "on" -> {
+                binding.navBarCameraButton.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
+                binding.randomPuzzleButton.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
+                binding.navBarImageButton.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
+                binding.navBarUserButton.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
+                binding.button2.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
             }
-            binding.navBarImageButton.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
-            }
-            binding.navBarUserButton.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
-            }
-            binding.button2.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
-            }
-        }
-        else if(enable == "on"){
-            binding.navBarCameraButton.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-            binding.randomPuzzleButton.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-            binding.navBarImageButton.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-            binding.navBarUserButton.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-            binding.button2.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-        }
-        else {
-            binding.navBarCameraButton.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
-            }
-            binding.randomPuzzleButton.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
-            }
-            binding.navBarImageButton.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
-            }
-            binding.navBarUserButton.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
-            }
-            binding.button2.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
+            else -> {
+                binding.navBarCameraButton.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
+                binding.randomPuzzleButton.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
+                binding.navBarImageButton.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
+                binding.navBarUserButton.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
+                binding.button2.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
             }
         }
     }
