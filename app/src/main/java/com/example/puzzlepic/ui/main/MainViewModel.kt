@@ -8,8 +8,8 @@ import com.example.puzzlepic.service.PictureService
 
 class MainViewModel : ViewModel() {
 
-    var picture: MutableLiveData<ArrayList<Picture>> = MutableLiveData<ArrayList<Picture>>()
-    var pictureService: PictureService = PictureService()
+    private var _picture: MutableLiveData<ArrayList<Picture>> = MutableLiveData<ArrayList<Picture>>()
+    private var _pictureService: PictureService = PictureService()
 
     init{
         fetchPictures()
@@ -21,7 +21,15 @@ class MainViewModel : ViewModel() {
     Loads an array of unsplash Pictures into the view model using retrofit
     */
     fun fetchPictures(){
-
-        picture = pictureService.fetchPicture()
+        _picture = _pictureService.fetchPicture()
     }
+
+    internal var picture: MutableLiveData<ArrayList<Picture>>
+        get() {return _picture}
+        set(value) {_picture = value}
+
+    internal var pictureService : PictureService
+    get() {return _pictureService}
+    set(value){_pictureService = value}
+
 }
