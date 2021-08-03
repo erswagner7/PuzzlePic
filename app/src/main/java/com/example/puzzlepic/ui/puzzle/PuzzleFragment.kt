@@ -79,8 +79,59 @@ class PuzzleFragment : Fragment() {
             val bitmap = (drawable as BitmapDrawable).bitmap
             val uri:Uri = storeImage(bitmap)
             binding.bigPicture.isVisible = false
+            binding.puzzleSquare1.isVisible = false
+            binding.puzzleSquare2.isVisible = false
+            binding.puzzleSquare3.isVisible = false
+            binding.puzzleSquare4.isVisible = false
+            binding.puzzleSquare5.isVisible = false
+            binding.puzzleSquare6.isVisible = false
+            binding.puzzleSquare7.isVisible = false
+            binding.puzzleSquare8.isVisible = false
+            binding.puzzleSquare9.isVisible = false
+            binding.savePuzzleButton.isVisible = false
+            binding.puzzlifyButton.isVisible = false
+            binding.cancelButton.text = "Return to Home"
             binding.saveSuccessText.isVisible = true
             binding.saveSuccessText.text = "saved: $uri"
+        }
+
+        binding.cancelButton.setOnClickListener{
+            navController!!.navigate(R.id.action_puzzleFragment_to_mainFragment)
+        }
+
+        binding.puzzlifyButton.setOnClickListener{
+            binding.savePuzzleButton.text = "Save Puzzle"
+            val drawable = binding.bigPicture.drawable
+            val bitmap = (drawable as BitmapDrawable).bitmap
+            binding.bigPicture.isVisible = false
+            var imageView = binding.puzzleSquare1
+            imageView.setImageBitmap(bitmap)
+             imageView = binding.puzzleSquare2
+            imageView.setImageBitmap(bitmap)
+             imageView = binding.puzzleSquare3
+            imageView.setImageBitmap(bitmap)
+             imageView = binding.puzzleSquare4
+            imageView.setImageBitmap(bitmap)
+             imageView = binding.puzzleSquare5
+            imageView.setImageBitmap(bitmap)
+             imageView = binding.puzzleSquare6
+            imageView.setImageBitmap(bitmap)
+             imageView = binding.puzzleSquare7
+            imageView.setImageBitmap(bitmap)
+            imageView = binding.puzzleSquare8
+            imageView.setImageBitmap(bitmap)
+            imageView = binding.puzzleSquare9
+            imageView.setImageBitmap(bitmap)
+            binding.puzzleSquare1.isVisible = true
+            binding.puzzleSquare2.isVisible = true
+            binding.puzzleSquare3.isVisible = true
+            binding.puzzleSquare4.isVisible = true
+            binding.puzzleSquare5.isVisible = true
+            binding.puzzleSquare6.isVisible = true
+            binding.puzzleSquare7.isVisible = true
+            binding.puzzleSquare8.isVisible = true
+            binding.puzzleSquare9.isVisible = true
+
         }
     }
 
@@ -164,6 +215,10 @@ class PuzzleFragment : Fragment() {
                 it.isEnabled = false
                 it.alpha = 0.3F
             }
+            binding.puzzlifyButton.also{
+                it.isEnabled = false
+                it.alpha = 0.3F
+            }
         }
         else if(enable == "on"){
             binding.navBarCameraButton.also{
@@ -182,6 +237,10 @@ class PuzzleFragment : Fragment() {
                 it.isEnabled = true
                 it.alpha = 1F
             }
+            binding.puzzlifyButton.also{
+                it.isEnabled = true
+                it.alpha = 1F
+            }
         }
         else {
             binding.navBarCameraButton.also{
@@ -197,6 +256,10 @@ class PuzzleFragment : Fragment() {
                 it.alpha = if (it.isEnabled) 1F else .3f
             }
             binding.navBarUserButton.also{
+                it.isEnabled = !it.isEnabled
+                it.alpha = if (it.isEnabled) 1F else .3f
+            }
+            binding.puzzlifyButton.also{
                 it.isEnabled = !it.isEnabled
                 it.alpha = if (it.isEnabled) 1F else .3f
             }

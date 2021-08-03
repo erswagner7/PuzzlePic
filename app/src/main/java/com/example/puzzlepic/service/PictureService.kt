@@ -38,6 +38,7 @@ class PictureService {
                 response: Response<ArrayList<Picture>>
             ) {
                 _Picture.value = response.body()
+
             }
 
             /**
@@ -51,4 +52,6 @@ class PictureService {
         })
         return _Picture
     }
+
+
 }
