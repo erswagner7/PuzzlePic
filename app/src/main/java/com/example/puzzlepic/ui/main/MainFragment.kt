@@ -43,23 +43,19 @@ class MainFragment : Fragment() {
     private val CAMERA_REQUEST_CODE: Int = 1998
     private val CAMERA_PERMISSION_REQUEST_CODE = 1997
     private val AUTH_REQUEST_CODE = 2002
-    
-    private lateinit var currentPhotoPath: String
-    lateinit var navController: NavController
-
-    protected var puzzleURI : Uri? = null
     private var puzzles : ArrayList<Picture> = ArrayList<Picture>()
-
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
-
     private var user : FirebaseUser? = null
+    private lateinit var currentPhotoPath: String
+    protected var puzzleURI : Uri? = null
+    private lateinit var viewModel: MainViewModel
+    lateinit var navController: NavController
 
     companion object {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -223,12 +219,12 @@ class MainFragment : Fragment() {
         }
     }
 
-    fun initiateLoading() {
+    private fun initiateLoading() {
         binding.progressBar.isVisible = true
         toggleButtons("off")
     }
 
-    fun loadingComplete(){
+    private fun loadingComplete(){
         if(viewModel.picture.value!!.size > 0){
             binding.progressBar.isVisible = false
             toggleButtons("on")
@@ -241,70 +237,72 @@ class MainFragment : Fragment() {
     }
 
     private fun toggleButtons(enable  : String = "") {
-        if(enable == "off") {
-            binding.navBarCameraButton.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
+        when (enable) {
+            "off" -> {
+                binding.navBarCameraButton.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
+                binding.randomPuzzleButton.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
+                binding.navBarImageButton.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
+                binding.navBarUserButton.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
+                binding.button2.also{
+                    it.isEnabled = false
+                    it.alpha = 0.3F
+                }
             }
-            binding.randomPuzzleButton.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
+            "on" -> {
+                binding.navBarCameraButton.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
+                binding.randomPuzzleButton.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
+                binding.navBarImageButton.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
+                binding.navBarUserButton.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
+                binding.button2.also{
+                    it.isEnabled = true
+                    it.alpha = 1F
+                }
             }
-            binding.navBarImageButton.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
-            }
-            binding.navBarUserButton.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
-            }
-            binding.button2.also{
-                it.isEnabled = false
-                it.alpha = 0.3F
-            }
-        }
-        else if(enable == "on"){
-            binding.navBarCameraButton.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-            binding.randomPuzzleButton.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-            binding.navBarImageButton.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-            binding.navBarUserButton.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-            binding.button2.also{
-                it.isEnabled = true
-                it.alpha = 1F
-            }
-        }
-        else {
-            binding.navBarCameraButton.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
-            }
-            binding.randomPuzzleButton.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
-            }
-            binding.navBarImageButton.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
-            }
-            binding.navBarUserButton.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
-            }
-            binding.button2.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
+            else -> {
+                binding.navBarCameraButton.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
+                binding.randomPuzzleButton.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
+                binding.navBarImageButton.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
+                binding.navBarUserButton.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
+                binding.button2.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
+                }
             }
         }
     }
