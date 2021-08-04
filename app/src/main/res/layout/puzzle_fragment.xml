@@ -69,16 +69,17 @@
             android:src="@drawable/ic_user" />
     </LinearLayout>
 
+
     <ImageView
         android:id="@+id/bigPicture"
         android:layout_width="320dp"
         android:layout_height="450dp"
         android:layout_marginStart="45dp"
         android:layout_marginLeft="45dp"
-        android:layout_marginTop="66dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="45dp"
         android:layout_marginRight="45dp"
-        android:layout_marginBottom="87dp"
+        android:layout_marginBottom="80dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,23 +88,39 @@
         tools:ignore="MissingConstraints"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
+
     <Button
         android:id="@+id/savePuzzleButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="142dp"
-        android:layout_marginLeft="142dp"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="143dp"
-        android:layout_marginRight="143dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="535dp"
+        android:layout_marginEnd="158dp"
+        android:layout_marginRight="158dp"
         android:text="Save Image"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/cancelButton"
+        app:layout_constraintTop_toBottomOf="@id/topNavBar" />
+
+    <Button
+        android:id="@+id/puzzlifyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="535dp"
+        android:layout_marginEnd="120dp"
+        android:layout_marginRight="120dp"
+        android:text="Puzzlify"
+        app:layout_constraintEnd_toEndOf="@id/cancelButton"
+        app:layout_constraintTop_toBottomOf="@id/topNavBar" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="535dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginRight="23dp"
+        android:text="Cancel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bigPicture"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@id/topNavBar" />
 
     <TextView
         android:id="@+id/saveSuccessText"
@@ -111,16 +128,130 @@
         android:layout_height="116dp"
         android:layout_marginStart="25dp"
         android:layout_marginLeft="25dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="150dp"
         android:layout_marginEnd="23dp"
         android:layout_marginRight="23dp"
-        android:layout_marginBottom="2dp"
         android:text="TextView"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/savePuzzleButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topNavBar"
+        app:layout_constraintTop_toBottomOf="@id/topNavBar"
+        tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/puzzleSquare1"
+        android:layout_width="119dp"
+        android:layout_height="129dp"
+        android:layout_marginTop="202dp"
+        android:layout_marginEnd="262dp"
+        android:layout_marginRight="262dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topNavBar"
+        tools:src="@tools:sample/backgrounds/scenic"
+        tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/puzzleSquare2"
+        android:layout_width="119dp"
+        android:layout_height="129dp"
+        android:layout_marginTop="202dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginRight="140dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topNavBar"
+        tools:src="@tools:sample/backgrounds/scenic"
+        tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/puzzleSquare3"
+        android:layout_width="119dp"
+        android:layout_height="129dp"
+        android:layout_marginTop="202dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topNavBar"
+        tools:src="@tools:sample/backgrounds/scenic"
+        tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/puzzleSquare4"
+        android:layout_width="119dp"
+        android:layout_height="129dp"
+        android:layout_marginTop="335dp"
+        android:layout_marginEnd="262dp"
+        android:layout_marginRight="262dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topNavBar"
+        tools:src="@tools:sample/backgrounds/scenic"
+        tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/puzzleSquare5"
+        android:layout_width="119dp"
+        android:layout_height="129dp"
+        android:layout_marginTop="335dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginRight="140dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topNavBar"
+        tools:src="@tools:sample/backgrounds/scenic"
+        tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/puzzleSquare6"
+        android:layout_width="119dp"
+        android:layout_height="129dp"
+        android:layout_marginTop="335dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topNavBar"
+        tools:src="@tools:sample/backgrounds/scenic"
+        tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/puzzleSquare7"
+        android:layout_width="119dp"
+        android:layout_height="129dp"
+        android:layout_marginTop="468dp"
+        android:layout_marginEnd="262dp"
+        android:layout_marginRight="262dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topNavBar"
+        tools:src="@tools:sample/backgrounds/scenic"
+        tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/puzzleSquare8"
+        android:layout_width="119dp"
+        android:layout_height="129dp"
+        android:layout_marginTop="468dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginRight="140dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topNavBar"
+        tools:src="@tools:sample/backgrounds/scenic"
+        tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/puzzleSquare9"
+        android:layout_width="119dp"
+        android:layout_height="129dp"
+        android:layout_marginTop="468dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="17dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/topNavBar"
+        tools:src="@tools:sample/backgrounds/scenic"
         tools:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -37,7 +37,9 @@ class PictureService {
                 call: Call<ArrayList<Picture>>,
                 response: Response<ArrayList<Picture>>
             ) {
+
                 picture.value = response.body()
+
             }
 
             /**
@@ -51,4 +53,6 @@ class PictureService {
         })
         return picture
     }
+
+
 }

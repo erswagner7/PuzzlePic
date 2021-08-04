@@ -1,11 +1,13 @@
 package com.example.puzzlepic.dto
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
-
-data class Picture(@SerializedName("id") var pictureID : String = "",
+@Entity(tableName="picture")
+data class Picture(@PrimaryKey @SerializedName("id") var pictureID : String = "",
                    @SerializedName("alt_description") var pictureTitle : String = "",
                    @SerializedName("created_at") var date : String = "",
                    var location : String = "", var notes : String = "", var puzzleID : Int = 0,
