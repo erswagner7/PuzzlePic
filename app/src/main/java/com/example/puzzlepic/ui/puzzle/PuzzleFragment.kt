@@ -579,10 +579,9 @@ class PuzzleFragment : Fragment() {
                     it.isEnabled = !it.isEnabled
                     it.alpha = if (it.isEnabled) 1F else .3f
                 }
-            }
-            binding.puzzlifyButton.also{
-                it.isEnabled = !it.isEnabled
-                it.alpha = if (it.isEnabled) 1F else .3f
+                binding.puzzlifyButton.also{
+                    it.isEnabled = !it.isEnabled
+                    it.alpha = if (it.isEnabled) 1F else .3f
             }
         }
     }
