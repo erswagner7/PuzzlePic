@@ -585,5 +585,5 @@ class PuzzleFragment : Fragment() {
             }
         }
     }
-
+    }
 }
