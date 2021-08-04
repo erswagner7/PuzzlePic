@@ -25,7 +25,7 @@ class PictureService {
      */
    internal fun fetchPicture() : MutableLiveData<ArrayList<Picture>> {
 
-        var _Picture = MutableLiveData<ArrayList<Picture>>()
+        var picture = MutableLiveData<ArrayList<Picture>>()
         val service = RetrofitClientInstance.retrofitInstance?.create(IPictureDAO::class.java)
         val call = service?.getRandomImage()
         call?.enqueue(object: Callback<ArrayList<Picture>>{
@@ -37,18 +37,22 @@ class PictureService {
                 call: Call<ArrayList<Picture>>,
                 response: Response<ArrayList<Picture>>
             ) {
-                _Picture.value = response.body()
+
+                picture.value = response.body()
+
             }
 
             /**
              * Callback method to be invoked when the response fails  //TODO implement method
              */
             override fun onFailure(call: Call<ArrayList<Picture>>, t: Throwable) {
-                Log.e("ImageRetreivalFailure","Unable to retrieve image from api")
+                Log.e("ImageRetrievalFailure","Unable to retrieve image from api")
             }
 
 
         })
-        return _Picture
+        return picture
     }
+
+
 }
