@@ -282,7 +282,7 @@ class MainFragment : Fragment() {
                     it.alpha = 1F
                 }
             }
-                -> {
+            else -> {
                 binding.navBarCameraButton.also{
                     it.isEnabled = !it.isEnabled
                     it.alpha = if (it.isEnabled) 1F else .3f
